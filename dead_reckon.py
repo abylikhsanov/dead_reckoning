@@ -1,12 +1,13 @@
 import numpy as np
 
-def calc_lin_vel_and_theta(l,w_l, w_r, r):
+def calc_lin_vel_and_ang(l,w_l, w_r, r):
 	b = np.matrix([[1,1],[1/l, -1/l]], np.float32)
 	c = np.matrix([[w_r], [w_l]], np.float32)
 	a = (r/2)*b*c
 	return a
 
 def dead_reckon(T,w_l, w_r,l,r,theta, posx, posy):
+	# T = period, w_l and w_r = angular velocities of wheels, r=radius, l = distance between wheels
 	theta_T = 0.0
 	posx_T = 0.0
 	posy_T = 0.0
@@ -34,3 +35,10 @@ def dead_reckon(T,w_l, w_r,l,r,theta, posx, posy):
 
 	params = [theta_T, posx_T, posy_T, s]
 	return params
+
+def main():
+
+	print(dead_reckon(1.0, 20.0, 20.0, 1.5, 0.05, 10.0, 0.0, 0.0))
+
+if __name__ == '__main__':
+	main()
